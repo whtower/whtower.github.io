@@ -29,17 +29,19 @@ function renderContent(markdown) {
 
 // 生成导航菜单
 function generateNavigation() {
-  const nav = document.querySelector('.main-nav');
-  const headings = document.querySelectorAll('#content h2, #content h3');
+  const nav = document.querySelector('.main-nav ul');
+  const headings = document.querySelectorAll('#content h2');
   
   nav.innerHTML = '';
   
   headings.forEach(heading => {
+    const li = document.createElement('li');
     const link = document.createElement('a');
     link.href = `#${heading.id}`;
     link.textContent = heading.textContent;
-    link.classList.add(heading.tagName.toLowerCase());
-    nav.appendChild(link);
+    link.classList.add('nav-link');
+    li.appendChild(link);
+    nav.appendChild(li);
   });
 }
 
