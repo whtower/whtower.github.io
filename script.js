@@ -35,11 +35,28 @@ function generateNavigation() {
   nav.innerHTML = '';
   
   headings.forEach(heading => {
+    // 为每个标题生成唯一ID
+    if (!heading.id) {
+      heading.id = heading.textContent
+        .toLowerCase()
+        .replace(/[^\w]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
     const li = document.createElement('li');
     const link = document.createElement('a');
     link.href = `#${heading.id}`;
     link.textContent = heading.textContent;
     link.classList.add('nav-link');
+    
+    // 添加平滑滚动
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector(link.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+    
     li.appendChild(link);
     nav.appendChild(li);
   });
